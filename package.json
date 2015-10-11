@@ -17,5 +17,9 @@
     "http"
   ],
   "author": "Bartosz Andrzejczak",
-  "license": "ISC"
+  "license": "ISC",
+  "dependencies": {
+    "express": "^4.13.3",
+    "lodash": "^3.10.1"
+  }
 }
