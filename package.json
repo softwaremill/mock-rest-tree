@@ -1,0 +1,21 @@
+{
+  "name": "mock-rest-tree",
+  "version": "0.0.1",
+  "description": "Mock REST server for serving tree-like data",
+  "main": "index.js",
+  "repository": {
+    "type": "git",
+    "url": "git://github.com/softwaremill/mock-rest-tree.git"
+  },
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "keywords": [
+    "rest",
+    "server",
+    "mock",
+    "http"
+  ],
+  "author": "Bartosz Andrzejczak",
+  "license": "ISC"
+}
