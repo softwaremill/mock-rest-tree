@@ -11,10 +11,10 @@ function MockServer(options) {
     data: './data.json',
 
     // HTTP path of resource containing single tree node
-    elementPath: '/node',
+    nodePath: '/node',
 
     // HTTP path of resource containing tree node with it's immediate children
-    collectionPath: '/children',
+    childrenPath: '/children',
 
     // Name of JSON field which will be used for tree navigation
     // e.g. if idFieldName === 'id', /node/123 will retrieve
@@ -42,19 +42,21 @@ function MockServer(options) {
   var data = mockServer.options.dataObject || require(mockServer.options.data);
 
   function handleCollectionRequest(req, res) {
-    var pathSegments = extractPathSegments(req, mockServer.options.collectionPath);
+    var pathSegments = extractPathSegments(req, mockServer.options.childrenPath);
     var node = findNode(pathSegments);
     node[mockServer.options.childrenFieldName] = _.map(node[mockServer.options.childrenFieldName], function (child) {
       child[mockServer.options.childrenFieldName] = undefined;
       return setPathIncludingElementIfEnabled(child, pathSegments);
     });
+    res.contentType('application/json');
     res.send(JSON.stringify(node));
   }
 
   function handleElementRequest(req, res) {
-    var pathSegments = extractPathSegments(req, mockServer.options.elementPath);
+    var pathSegments = extractPathSegments(req, mockServer.options.nodePath);
     var node = findNode(pathSegments);
     node[mockServer.options.childrenFieldName] = undefined;
+    res.contentType('application/json');
     res.send(JSON.stringify(node));
   }
 
@@ -83,7 +85,7 @@ function MockServer(options) {
 
   function setPathIncludingElementIfEnabled(element, pathSegments) {
     var path = _.clone(pathSegments);
-    path.push(element.title);
+    path.push(element[mockServer.options.idFieldName]);
     return setPathIfEnabled(element, path);
   }
 
@@ -96,16 +98,16 @@ function MockServer(options) {
 
   app.get(
     [
-      mockServer.options.collectionPath,
-      mockServer.options.collectionPath + "*"
+      mockServer.options.childrenPath,
+      mockServer.options.childrenPath + "*"
     ],
     handleCollectionRequest
   );
 
   app.get(
     [
-      mockServer.options.elementPath,
-      mockServer.options.elementPath + "*"
+      mockServer.options.nodePath,
+      mockServer.options.nodePath + "*"
     ],
     handleElementRequest
   );
@@ -114,7 +116,7 @@ function MockServer(options) {
     var host = server.address().address;
     var port = server.address().port;
 
-    console.log('Mock data server is listening at http://%s:%s', host, port);
+    console.log('Mock data server is listening at http://%s:%s\n', host, port);
   });
 
   mockServer.close = function () {
