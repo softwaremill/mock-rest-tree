@@ -16,7 +16,7 @@
     "mock",
     "http"
   ],
-  "author": "Bartosz Andrzejczak",
+  "author": "Bartosz Andrzejczak <bartosz.andrzejczak@softwaremill.com> (http://softwaremill.com)",
   "license": "ISC",
   "dependencies": {
     "express": "^4.13.3",
