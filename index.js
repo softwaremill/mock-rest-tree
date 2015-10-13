@@ -66,8 +66,6 @@ function MockServer(options) {
   }
 
   function findNode(pathSegments) {
-    var initialObject = {};
-    initialObject[mockServer.options.childrenFieldName] = data;
     var node = _.cloneDeep(
       _.reduce(pathSegments, function (node, segment) {
         return _.find(
@@ -78,7 +76,7 @@ function MockServer(options) {
           mockServer.options.idFieldName,
           segment
         );
-      }, initialObject)
+      }, data)
     );
     return setPathIfEnabled(node, pathSegments);
   }
