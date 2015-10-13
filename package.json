@@ -1,6 +1,6 @@
 {
   "name": "mock-rest-tree",
-  "version": "0.0.1",
+  "version": "0.1.0",
   "description": "Mock REST server for serving tree-like data",
   "main": "index.js",
   "repository": {
