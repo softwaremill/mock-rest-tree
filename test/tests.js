@@ -7,7 +7,6 @@ describe('Mock tree server', function () {
   describe('Options', function () {
 
     it('should run on a port specified by an option', function (done) {
-      // given
       var server = mockServer.start({
         port: 9999,
         dataObject: {}

@@ -1,4 +1,7 @@
+lint:
+	@./node_modules/.bin/eslint "**/*.js"
+
 test:
 	@./node_modules/.bin/mocha
 
-.PHONY: test
+.PHONY: lint test
